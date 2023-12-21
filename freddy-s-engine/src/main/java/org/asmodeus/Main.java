@@ -3,19 +3,8 @@ package org.asmodeus;
 import org.asmodeus.engine.Core;
 import org.asmodeus.engine.Parameters;
 import org.asmodeus.engine.Render;
-import org.asmodeus.engine.Parameters.resetWinHints;
-import org.lwjgl.glfw.GLFWVidMode;
-import org.lwjgl.system.MemoryStack;
-
-import java.lang.reflect.Parameter;
-import java.nio.IntBuffer;
-
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL.createCapabilities;
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.system.MemoryStack.stackPush;
-import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Main implements AutoCloseable, Runnable {
 
@@ -50,29 +39,19 @@ public class Main implements AutoCloseable, Runnable {
                 glfwSetWindowShouldClose(windowHandle, true);
             }
         });
-        try (MemoryStack stack = stackPush()) {
-            IntBuffer pWidth = stack.mallocInt(1);
-            IntBuffer pHeight = stack.mallocInt(1);
-            glfwGetWindowSize(windowHandle, pWidth, pHeight);
-            GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-            glfwSetWindowPos(
-                    windowHandle,
-                    (vidMode.width() - pWidth.get(0)) / 2,
-                    (vidMode.height() - pHeight.get(0)) / 2
-            );
-        }
-        glfwMakeContextCurrent(windowHandle);
-        glfwSwapInterval(1);
-        glfwShowWindow(windowHandle);
-        createCapabilities();
-        System.out.println("OpenGL: " + glGetString(GL_VERSION));
-        glClearColor(0.0f, 0.0f, 0.2f, 0.0f);
+        Render.window.center(windowHandle);
+        Render.current(windowHandle);
+        Render.swap_interval(1);
+        Render.window.show(windowHandle);
+        Render.create_capabilities();
+        Core.gl_info();
+        Parameters.background.color(0.0f, 0.0f, 0.2f, 0.0f);
     }
 
     public void loop() {
         while (!glfwWindowShouldClose(windowHandle)) {
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            glfwSwapBuffers(windowHandle);
+            Render.clear(Parameters.gl_buffers.color | Parameters.gl_buffers.depth);
+            Render.swap(windowHandle);
             glfwPollEvents();
         }
     }
@@ -80,8 +59,8 @@ public class Main implements AutoCloseable, Runnable {
     @Override
     public void close() {
         glfwFreeCallbacks(windowHandle);
-        glfwDestroyWindow(windowHandle);
-        glfwTerminate();
+        Render.window.destroy(windowHandle);
+        Render.terminate();
         glfwSetErrorCallback(null).free();
     }
 }
