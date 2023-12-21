@@ -8,6 +8,9 @@ import static org.lwjgl.opengl.GL11.glGetString;
 import org.lwjgl.Version;
 
 public class Core {
+    /**
+     * Now I have only OpenGL = "GL", but in future I am going add Vulkan = "VK"
+     */
     public static String currentAPI = "GL";
 
     public Core(){

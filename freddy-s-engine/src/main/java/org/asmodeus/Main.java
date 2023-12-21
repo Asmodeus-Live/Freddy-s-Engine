@@ -1,10 +1,10 @@
 package org.asmodeus;
 
 import org.asmodeus.engine.Core;
+import org.asmodeus.engine.Event;
 import org.asmodeus.engine.Parameters;
 import org.asmodeus.engine.Render;
-import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
-import static org.lwjgl.glfw.GLFW.*;
+
 
 public class Main implements AutoCloseable, Runnable {
 
@@ -34,9 +34,9 @@ public class Main implements AutoCloseable, Runnable {
 
         windowHandle = Render.window.create(windowHandle, windowWidth, windowHeight, windowTitle);
 
-        glfwSetKeyCallback(windowHandle, (windowHandle, key, scancode, action, mods) -> {
-            if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE) {
-                glfwSetWindowShouldClose(windowHandle, true);
+        Event.gl_key.callback(windowHandle, (windowHandle, key, scancode, action, mods) -> {
+            if (key == Parameters.gl_keys.ESCAPE && action == Parameters.gl_action.RELEASE) {
+                Render.window.set_should_close(windowHandle, true);
             }
         });
         Render.window.center(windowHandle);
@@ -49,18 +49,18 @@ public class Main implements AutoCloseable, Runnable {
     }
 
     public void loop() {
-        while (!glfwWindowShouldClose(windowHandle)) {
+        while (!Render.window.should_close(windowHandle)) {
             Render.clear(Parameters.gl_buffers.color | Parameters.gl_buffers.depth);
             Render.swap(windowHandle);
-            glfwPollEvents();
+            Event.poll();
         }
     }
 
     @Override
     public void close() {
-        glfwFreeCallbacks(windowHandle);
+        Event.free_callbacks(windowHandle);
         Render.window.destroy(windowHandle);
         Render.terminate();
-        glfwSetErrorCallback(null).free();
+        Event.gl_error(null);
     }
 }

@@ -7,10 +7,12 @@ import static org.lwjgl.glfw.GLFW.glfwGetVideoMode;
 import static org.lwjgl.glfw.GLFW.glfwGetWindowSize;
 import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
 import static org.lwjgl.glfw.GLFW.glfwSetWindowPos;
+import static org.lwjgl.glfw.GLFW.glfwSetWindowShouldClose;
 import static org.lwjgl.glfw.GLFW.glfwShowWindow;
 import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
 import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
 import static org.lwjgl.glfw.GLFW.glfwTerminate;
+import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
 import static org.lwjgl.opengl.GL.createCapabilities;
 import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.system.MemoryStack.stackPush;
@@ -41,7 +43,9 @@ public class Render {
          * @param window takes the window as a variable.
          */
         public static void destroy(long window){
-            glfwDestroyWindow(window);
+            if (Core.currentAPI == "GL"){
+                glfwDestroyWindow(window);
+            }
         }
 
         /**
@@ -61,6 +65,20 @@ public class Render {
                             (vidMode.height() - pHeight.get(0)) / 2
                     );
                 }
+            }
+        }
+
+        public static void set_should_close(long window, boolean flag){
+            if (Core.currentAPI == "GL"){
+                glfwSetWindowShouldClose(window, flag);
+            }
+        }
+
+        public static boolean should_close(long window){
+            if (Core.currentAPI == "GL"){
+                return glfwWindowShouldClose(window);
+            } else{
+                return false;
             }
         }
 

@@ -1,6 +1,8 @@
 package org.asmodeus.engine;
 
 import static org.lwjgl.glfw.GLFW.GLFW_FALSE;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
+import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 import static org.lwjgl.glfw.GLFW.GLFW_RESIZABLE;
 import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
 import static org.lwjgl.glfw.GLFW.GLFW_VISIBLE;
@@ -19,6 +21,14 @@ public class Parameters {
             if (Core.currentAPI == "GL"){
                 glfwWindowHint(param, flag);
             }
+    }
+
+    public class gl_keys{
+        public static final int ESCAPE = GLFW_KEY_ESCAPE;
+    }
+
+    public class gl_action{
+        public static final int RELEASE = GLFW_RELEASE;
     }
 
     /**
