@@ -1,17 +1,7 @@
 package org.asmodeus.engine;
 
-import static org.lwjgl.glfw.GLFW.GLFW_FALSE;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
-import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
-import static org.lwjgl.glfw.GLFW.GLFW_RESIZABLE;
-import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
-import static org.lwjgl.glfw.GLFW.GLFW_VISIBLE;
-import static org.lwjgl.glfw.GLFW.glfwDefaultWindowHints;
-import static org.lwjgl.glfw.GLFW.glfwWindowHint;
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.glClearColor;
-
+import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.*;
 
 /**
  * This just a settings class
@@ -23,18 +13,18 @@ public class Parameters {
             }
     }
 
-    public class gl_keys{
+    public class GL_keys{
         public static final int ESCAPE = GLFW_KEY_ESCAPE;
     }
 
-    public class gl_action{
+    public class GL_action{
         public static final int RELEASE = GLFW_RELEASE;
     }
 
     /**
     * Give you an ability to resize window.
     */
-    public class resizable{
+    public class Resizable{
          /**
         * @param flag use true or false to turn ON or turn OFF parameter.
         */
@@ -51,7 +41,7 @@ public class Parameters {
     /**
      * Shows to you a window.
      */
-    public class visible{
+    public class Visible{
          /**
         * @param flag use true or false to turn ON or turn OFF parameter.
         */
@@ -67,7 +57,7 @@ public class Parameters {
     /**
      * Shows to you a window.
      */
-    public class resetWinHints{
+    public class ResetParameters{
         public static void turn(){
             glfwDefaultWindowHints();
         }
@@ -76,7 +66,7 @@ public class Parameters {
     /**
      * Sets background color.
      */
-    public class background{
+    public class Background{
         public static void color(float red, float green, float blue, float alpha){
             glClearColor(red, green, blue, alpha);
         }
@@ -85,7 +75,7 @@ public class Parameters {
     /**
      * OpenGL buffers.
      */
-    public class gl_buffers{
+    public class GL_buffers{
         public static int color = GL_COLOR_BUFFER_BIT;
         public static int depth = GL_DEPTH_BUFFER_BIT;
     }

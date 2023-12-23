@@ -1,16 +1,13 @@
 package org.asmodeus;
 
-import org.asmodeus.engine.Core;
 import org.asmodeus.engine.Event;
 import org.asmodeus.engine.Parameters;
+import org.asmodeus.engine.Project;
 import org.asmodeus.engine.Render;
 
 
-public class Main implements AutoCloseable, Runnable {
+public class Main extends Project implements AutoCloseable, Runnable {
 
-    private static final String windowTitle = "Freddy's Engine";
-    private static final int windowWidth = 640;
-    private static final int windowHeight = 480;
     private long windowHandle;
 
     public static void main(String... args) {
@@ -20,37 +17,14 @@ public class Main implements AutoCloseable, Runnable {
     }
 
     public void run() {
-        init();
+        windowHandle = init(windowHandle);
         loop();
     }
 
-    public void init() {
-        new Core();
-
-        Parameters.resetWinHints.turn();
-
-        Parameters.resizable.turn(true);
-        Parameters.visible.turn(true);
-
-        windowHandle = Render.window.create(windowHandle, windowWidth, windowHeight, windowTitle);
-
-        Event.gl_key.callback(windowHandle, (windowHandle, key, scancode, action, mods) -> {
-            if (key == Parameters.gl_keys.ESCAPE && action == Parameters.gl_action.RELEASE) {
-                Render.window.set_should_close(windowHandle, true);
-            }
-        });
-        Render.window.center(windowHandle);
-        Render.current(windowHandle);
-        Render.swap_interval(1);
-        Render.window.show(windowHandle);
-        Render.create_capabilities();
-        Core.gl_info();
-        Parameters.background.color(0.0f, 0.0f, 0.2f, 0.0f);
-    }
-
-    public void loop() {
-        while (!Render.window.should_close(windowHandle)) {
-            Render.clear(Parameters.gl_buffers.color | Parameters.gl_buffers.depth);
+    @Override
+    protected void loop() {
+        while (!Render.Window.should_close(windowHandle)) {
+            Render.clear(Parameters.GL_buffers.color | Parameters.GL_buffers.depth);
             Render.swap(windowHandle);
             Event.poll();
         }
@@ -58,9 +32,6 @@ public class Main implements AutoCloseable, Runnable {
 
     @Override
     public void close() {
-        Event.free_callbacks(windowHandle);
-        Render.window.destroy(windowHandle);
-        Render.terminate();
-        Event.gl_error(null);
+        close(windowHandle);
     }
 }

@@ -1,15 +1,13 @@
 package org.asmodeus.engine;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
-import static org.lwjgl.glfw.GLFW.glfwPollEvents;
-import static org.lwjgl.glfw.GLFW.glfwSetErrorCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetKeyCallback;
+import static org.lwjgl.glfw.GLFW.*;
 
 import org.lwjgl.glfw.GLFWErrorCallbackI;
 import org.lwjgl.glfw.GLFWKeyCallbackI;
 
 public class Event {
-    public class gl_key{
+    public class GL_key{
         public static void callback(long window, GLFWKeyCallbackI call){
             glfwSetKeyCallback(window, call);
         }

@@ -1,18 +1,6 @@
 package org.asmodeus.engine;
 
-import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
-import static org.lwjgl.glfw.GLFW.glfwDestroyWindow;
-import static org.lwjgl.glfw.GLFW.glfwGetPrimaryMonitor;
-import static org.lwjgl.glfw.GLFW.glfwGetVideoMode;
-import static org.lwjgl.glfw.GLFW.glfwGetWindowSize;
-import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
-import static org.lwjgl.glfw.GLFW.glfwSetWindowPos;
-import static org.lwjgl.glfw.GLFW.glfwSetWindowShouldClose;
-import static org.lwjgl.glfw.GLFW.glfwShowWindow;
-import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
-import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
-import static org.lwjgl.glfw.GLFW.glfwTerminate;
-import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
+import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL.createCapabilities;
 import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.system.MemoryStack.stackPush;
@@ -21,11 +9,12 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 import java.nio.IntBuffer;
 
 import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.glfw.GLFWImage.Buffer;
 import org.lwjgl.system.MemoryStack;
 
 public class Render {
 
-    public class window{
+    public class Window{
         /**
          * Creates a window.
          * @param window takes the window as a variable.
@@ -91,6 +80,11 @@ public class Render {
                 glfwShowWindow(window);
             }
         }
+    
+        public static void icon(long window, Buffer image){
+            glfwSetWindowIcon(window, image);
+        }
+
     }
 
     /**
