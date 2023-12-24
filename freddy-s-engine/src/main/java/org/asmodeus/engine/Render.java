@@ -37,6 +37,33 @@ public class Render {
             }
         }
 
+        public static long restart(long window, int width, int height, String title){
+            destroy(window);
+
+            window = Render.Window.create(window, width, height, title);
+
+            Event.GL_key.callback(window, (windowHandle, key, scancode, action, mods) -> {
+                if (key == Parameter.Key.ESCAPE && action == Parameter.GL_action.RELEASE) {
+                    Render.Window.set_should_close(windowHandle, true);
+                }
+            });
+
+            Render.Window.center(window);
+            Render.current(window);
+            Render.swap_interval(1);
+            Render.Window.show(window);
+            Render.create_capabilities();
+            return window;
+        }
+
+        public static void set_size(long window, int width, int height){
+            glfwSetWindowSize(window, width, height);
+        }
+
+        public static void set_title(long window, String title){
+            glfwSetWindowTitle(window, title);
+        }
+
         /**
          * Center a window.
          * @param window takes the window as a variable.

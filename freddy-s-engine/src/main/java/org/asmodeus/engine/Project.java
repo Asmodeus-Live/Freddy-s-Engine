@@ -2,19 +2,18 @@ package org.asmodeus.engine;
 
 abstract public class Project {
 
-    private static final String windowTitle = "Freddy's Engine";
+    private static final String windowTitle = "App";
     private static final int windowWidth = 640;
     private static final int windowHeight = 480;
 
     public long init(long window) {
         new Core();
-        Parameters.ResetParameters.turn();
-        Parameters.Resizable.turn(true);
-        Parameters.Visible.turn(true);
+        Parameter.ResetParameter.turn();
+        Parameter.Resizable.turn(true);
         window = Render.Window.create(window, windowWidth, windowHeight, windowTitle);
 
         Event.GL_key.callback(window, (windowHandle, key, scancode, action, mods) -> {
-            if (key == Parameters.Keys.ESCAPE && action == Parameters.GL_action.RELEASE) {
+            if (key == Parameter.Key.ESCAPE && action == Parameter.GL_action.RELEASE) {
                 Render.Window.set_should_close(windowHandle, true);
             }
         });
@@ -25,7 +24,7 @@ abstract public class Project {
         Render.Window.show(window);
         Render.create_capabilities();
         Core.gl_info();
-        Parameters.Background.color(0.0f, 0.0f, 0.0f, 0.0f);
+        Parameter.Background.color(0.0f, 0.0f, 0.0f, 0.0f);
 
         return window;
     }
