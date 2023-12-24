@@ -13,8 +13,14 @@ public class Parameters {
             }
     }
 
-    public class GL_keys{
+    public class Keys{
         public static final int ESCAPE = GLFW_KEY_ESCAPE;
+        public static final int A = GLFW_KEY_A;
+        public static final int B = GLFW_KEY_B;
+        public static final int C = GLFW_KEY_C;
+        
+
+        public static final int W = GLFW_KEY_W;
     }
 
     public class GL_action{

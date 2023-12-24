@@ -14,7 +14,7 @@ abstract public class Project {
         window = Render.Window.create(window, windowWidth, windowHeight, windowTitle);
 
         Event.GL_key.callback(window, (windowHandle, key, scancode, action, mods) -> {
-            if (key == Parameters.GL_keys.ESCAPE && action == Parameters.GL_action.RELEASE) {
+            if (key == Parameters.Keys.ESCAPE && action == Parameters.GL_action.RELEASE) {
                 Render.Window.set_should_close(windowHandle, true);
             }
         });
