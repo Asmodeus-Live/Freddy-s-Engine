@@ -5,11 +5,8 @@ import org.asmodeus.engine.Parameter;
 import org.asmodeus.engine.Project;
 import org.asmodeus.engine.Render;
 
-
 public class Main extends Project implements AutoCloseable, Runnable {
-
     private long windowHandle;
-
     public static void main(String... args) {
         try (Main main = new Main()) {
             main.run();
@@ -18,12 +15,10 @@ public class Main extends Project implements AutoCloseable, Runnable {
 
     public void app(){
         windowHandle = init(windowHandle);
-        
 
         Parameter.ResetParameter.turn();
         Parameter.Resizable.turn(false);
-
-        windowHandle = Render.Window.restart(windowHandle, 1280, 720, "App");
+        windowHandle = Render.Window.restart(windowHandle, 1000, 500, "App");
         Parameter.Background.color(1.0f, 0.1f, 0.1f, 0.5f);
     }
 
